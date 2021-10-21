@@ -1,0 +1,22 @@
+// Default variable overrides
+// variables 전에 색상 지정되어야 변경됨.
+$primary: #FDC000;
+
+$theme-colors: (
+  "primary":   orange,
+  "secondary":  red,
+  "success":    red,
+  "info":      red,
+  "warning":    red,
+  "danger":    red,
+  "light":     red,
+  "dark":       red,
+);
+
+// Required
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
