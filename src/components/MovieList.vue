@@ -9,8 +9,11 @@
   </div>
 </template>
 
+
 <script>
-export default {
+import MovieItem from '~/components/MovieItem'
+
+export default {  
   components: {
     MovieItem
   },

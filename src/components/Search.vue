@@ -24,12 +24,12 @@
         </option>
       </select>
     </div>
-    <button class="btn btn-primary" @click="apply">Apple</button>
+    <button class="btn btn-primary" @click="apply">Apply</button>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data() {
     return {
@@ -68,7 +68,7 @@ export default {
     //   console.log(res)
     // }
     async apply() {
-      this.$store.dispatch('movie/searcheMovies', {
+      this.$store.dispatch('movie/searchMovies', {
         title: this.title,
         type: this.type,
         number: this.number,

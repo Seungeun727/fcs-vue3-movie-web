@@ -1,4 +1,6 @@
-export default{
+import axios from 'axios'
+
+export default {
   // module
   namespaced: true,
 
@@ -11,7 +13,7 @@ export default{
   
   // computed
   getters: {
-    movieIds(state) {
+    movieIds(state) {  
       return state.movies.map(m => m.imdbUID)
     }
   },
@@ -25,26 +27,31 @@ export default{
         state[key] = payload[key] 
       })
     },
+
+    assignMovies (state, Search) {
+      state.movies = Search
+    },
+
     resetMovies(state) {
-      return state.movies = []
+      state.movies = []
     }
   },
 
   // 비동기 처리
   actions: {
-    searchMovies({commit}, payload) {
+    async searchMovies({commit}, payload) {
       const { title, type, number, year} = payload
       const OMDB_API_KEY = '7035c60c'
 
-      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=1`)
-      const { Search, totalResultes } = res.data
+      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
+      const { Search, totalResults } = res.data 
       commit('updateState', {
-        movies: Search 
+        movies: Search,
       })
-      console.log(totalResultes)  // 268 => 27
-      console.log(typeof totalResultes)  // String
+      console.log(totalResults)  // 268=> 27
+      console.log(typeof totalResults)  // String
 
-      const total = parsInt(totalResultes, 10)
+      const total = parseInt(totalResults, 10)
       const pageLength = Math.ceil(total / 10)
 
       // 추가 요청 전송
@@ -52,10 +59,8 @@ export default{
       // 다음 axios로 받아온게 실행이 안됨
       if (pageLength > 1) {
         for (let page = 2; page <= pageLength; page+= 1) {
-          if (page > number / 10) {
-            break
-          }
-          const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=${page}`) 
+          if (page > (number / 10)) break
+          const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`)    
           const { Search } = res.data
           commit('updateState', {
             movies: [...state.movies, ...Search]
