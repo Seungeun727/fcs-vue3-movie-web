@@ -110,6 +110,7 @@ export default {
       })
       try {
         const res = await _fetchMovie(payload);
+        console.log("Searched Movie", res.data);
         commit('updateState', {
           theMovie: res.data
         })
