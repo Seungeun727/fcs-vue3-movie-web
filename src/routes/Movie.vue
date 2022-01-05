@@ -21,8 +21,12 @@
       v-else 
       class="movie-details">
       <div
-        :style="{ backgroundImage: `url(${theMovie.Poster})` }" 
-        class="poster"></div>
+        :style="{ backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})` }" 
+        class="poster">
+        <Loader 
+          v-if="imageLoading"
+          absolute />
+      </div>
       <div class="specs">
         <div class="title">
           {{ theMovie.Title }}
@@ -81,12 +85,29 @@ export default {
       return this.$store.state.movie.loading;
     }
   },
+  data() {
+    return {
+      imageLoading: true
+    }
+  },
   created() {
     console.log(this.$route);
     this.$store.dispatch('movie/searchMovieWithId', {
       // movie/id
       id: this.$route.params.id
     })
+  },
+  methods: {
+    // 이미지 해상도 사이즈 변경 
+    requestDiffSizeImage(url, size = 700) {
+      const src = url.replace('SX300', `SX${size}`);
+      this.$loadImage(src)
+        .then(() => {
+          this.imageLoading = false
+        })
+        console.log("src", src);
+      return src
+    }
   }
 }
 </script>
@@ -145,6 +166,7 @@ export default {
     background-color: $gray-200;
     background-size: cover;
     background-position: center;
+    position: relative;
   }
   .specs {
     flex-grow: 1;

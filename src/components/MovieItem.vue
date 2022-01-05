@@ -2,6 +2,10 @@
   <div 
     :style="{ backgroundImage: `url(${movie.Poster})` }" 
     class="movie">
+    <Loader 
+      v-if="imageLoading"
+      :size="1.5" 
+      absolute />
     <div class="info">
       <div class="year">
         {{ movie.Year }}
@@ -14,12 +18,30 @@
 </template>
 
 <script>
-
+import Loader from '~/components/Loader'
 export default {
+  components: {
+    Loader
+  },
   props: {
     movie: {
       type: Object,
       default: () => ({})
+    }
+  },
+  data() {
+    return {
+      imageLoading: true
+    }
+  },
+  // HTMl 구조와 연결된 직후 mounted() 사용을 권장.
+  mounted() {
+    this.init();
+  },
+  methods: {
+    async init() {
+      await this.$loadImage(this.movie.Poster);
+      this.imageLoading = false;
     }
   }
 }
