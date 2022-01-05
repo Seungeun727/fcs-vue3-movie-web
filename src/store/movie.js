@@ -9,14 +9,15 @@ export default {
   state: () => ({
     movies: [], 
     message: 'Search for the movie title!',
-    loading: false
+    loading: false,
+    theMovie: {}
   }),
   
   // computed
   getters: {
-    movieIds(state) {  
-      return state.movies.map(m => m.imdbUID)
-    }
+    // movieIds(state) {  
+    //   return state.movies.map(m => m.imdbUID)
+    // }
   },
 
   // methods
@@ -52,7 +53,7 @@ export default {
 
       try {
         // const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
-        const res = await _fecthMovie({ 
+        const res = await _fetchMovie({ 
           ...payload,
           page: 1
         })
@@ -60,11 +61,11 @@ export default {
         commit('updateState', {
           movies: _uniqBy(Search, 'imdbID')
         })
-        console.log(totalResults)  // 268=> 27
-        console.log(typeof totalResults)  // String
+        console.log(totalResults);  // 268=> 27
+        console.log(typeof totalResults);  // String
 
-        const total = parseInt(totalResults, 10)
-        const pageLength = Math.ceil(total / 10)
+        const total = parseInt(totalResults, 10);
+        const pageLength = Math.ceil(total / 10);
 
         // 추가 요청 전송
         // page가 number보다 크면 break로 빠지고 
@@ -73,7 +74,7 @@ export default {
           for (let page = 2; page <= pageLength; page+= 1) {
             if (page > (payload.number / 10)) break
             
-            const res = await _fecthMovie({ 
+            const res = await _fetchMovie({ 
               ...payload,
               page
             })
@@ -98,14 +99,39 @@ export default {
           loading: false
         })
       }
+    },
+    async searchMovieWithId({state, commit}, payload) {
+      // const { id } = payload;
+      if(state.loading) return 
+
+      commit('updateState', {
+        theMovie: {}, 
+        loading: true
+      })
+      try {
+        const res = await _fetchMovie(payload);
+        commit('updateState', {
+          theMovie: res.data
+        })
+      } catch (error) {
+        commit('updateState', {
+          theMovie: {}
+        })
+      } finally {
+        commit('updateState', {
+          loading: false
+        })
+      }
     }
   }
 }
 
-function _fecthMovie(payload) {
-  const { title, type, year, page } = payload
+function _fetchMovie(payload) {
+  const { title, type, year, page, id } = payload
   const OMDB_API_KEY = '7035c60c'
-  const url = `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+  const url = id 
+    ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
+    : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
 
   return new Promise((resolve, reject) => {
     axios.get(url)

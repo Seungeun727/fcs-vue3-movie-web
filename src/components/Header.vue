@@ -10,7 +10,7 @@
           :to="nav.href" 
           active-class="active"
           class="nav-link">
-          {{ nav.name}}
+          {{ nav.name }}
         </RouterLink>
       </div>
     </div>
@@ -33,7 +33,7 @@ export default {
 
         {
           name:'Movie',
-          href: '/movie'
+          href: '/movie/tt4520988'
         },
 
         {
