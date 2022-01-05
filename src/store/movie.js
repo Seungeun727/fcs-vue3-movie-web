@@ -8,7 +8,7 @@ export default {
   // 상태
   state: () => ({
     movies: [], 
-    message: '',
+    message: 'Search for the movie title!',
     loading: false
   }),
   
@@ -41,6 +41,15 @@ export default {
   // 비동기 처리
   actions: {
     async searchMovies({ state, commit }, payload) { 
+      if (state.loading) {  
+        return 
+      }
+      // 검색전 메시지 초기화
+      commit('updateState', {
+        message: '',
+        loading: true
+      })
+
       try {
         // const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
         const res = await _fecthMovie({ 
@@ -84,6 +93,10 @@ export default {
           movies: [],
           message: message
         })
+      } finally {
+        commit('updateState', {
+          loading: false
+        })
       }
     }
   }
@@ -97,14 +110,14 @@ function _fecthMovie(payload) {
   return new Promise((resolve, reject) => {
     axios.get(url)
       .then(res => {
-        console.log(res)
+        // console.log(res)
         // 예외 처리
         if (res.data.Error) {
           reject(res.data.Error)
         }
         resolve(res)
       })
-      .catch(err => {
+       .catch(err => {
         reject(err.message)
       })
   })
