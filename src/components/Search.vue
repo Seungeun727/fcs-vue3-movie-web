@@ -5,7 +5,7 @@
       class="form-control"
       type="text"
       placeholder="Search for Movies, Series & more" 
-      @keyup.enter="apply"/>
+      @keyup.enter="apply" />
     <div class="selects">
       <select
         v-for="filter in filters"
@@ -24,7 +24,11 @@
         </option>
       </select>
     </div>
-    <button class="btn btn-primary" @click="apply">Apply</button>
+    <button 
+      class="btn btn-primary" 
+      @click="apply">
+      Apply
+    </button>
   </div>
 </template>
 

@@ -77,17 +77,17 @@ export default {
   components: {
     Loader
   },
+  data() {
+    return {
+      imageLoading: true
+    }
+  },
   computed: {
     theMovie() {
       return this.$store.state.movie.theMovie;
     },
     loading() {
       return this.$store.state.movie.loading;
-    }
-  },
-  data() {
-    return {
-      imageLoading: true
     }
   },
   created() {
@@ -100,12 +100,16 @@ export default {
   methods: {
     // 이미지 해상도 사이즈 변경 
     requestDiffSizeImage(url, size = 700) {
+      if(!url || url === 'N/A') {
+        this.imageLoading = false;
+        return ''
+      }
       const src = url.replace('SX300', `SX${size}`);
       this.$loadImage(src)
         .then(() => {
-          this.imageLoading = false
+          this.imageLoading = false;
         })
-        console.log("src", src);
+        // console.log("src", src);
       return src
     }
   }
