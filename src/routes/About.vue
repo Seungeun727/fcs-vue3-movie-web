@@ -18,7 +18,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Loader from '~/components/Loader'
+
 export default {
   data() {
     return {
@@ -29,22 +31,13 @@ export default {
     Loader
   },
   computed: {
-    // 코드 비효율적 => vuex helper 이용
-    image() {
-      return this.$store.state.about.image;
-    },
-    name() {
-      return this.$store.state.about.name;
-    },
-    email() {
-      return this.$store.state.about.email;
-    },
-    blog() {
-      return this.$store.state.about.blog;
-    },
-    phone() {
-      return this.$store.state.about.phone;
-    }
+    ...mapState('about', [
+      'image',
+      'name',
+      'email',
+      'blog',
+      'phone'
+    ]) 
   },
   mounted() {
     this.init()
@@ -60,8 +53,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~/scss/main";
-
 .about {
   text-align: center;
   .photo {

@@ -111,5 +111,25 @@ export default {
     // width의 넓이가 감소되지 않도록
     flex-shrink: 0;
   }
+
+  @include media-breakpoint-down(lg) {
+    display: block; // 수직 
+    input {
+      margin-right: 0; 
+      margin-bottom: 10px;
+    }
+    .selects {
+      margin-right: 0;
+      margin-bottom: 10px;
+      select {
+        width: 100%;
+      }
+    }
+    .btn {
+      width: 100%;
+    }
+  }
 }
+
+
 </style>
