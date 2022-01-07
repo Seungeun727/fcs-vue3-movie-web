@@ -93,7 +93,7 @@ export default {
             }) 
           }
         }
-      } catch (message) {
+      } catch ({ message }) {  // error.message에서 구조 분해
         commit('updateState', {
           // 검색된 내용이 error 발생 시 화면에 안보임.
           movies: [],
@@ -132,25 +132,6 @@ export default {
   }
 }
 
-function _fetchMovie(payload) {
-  const { title, type, year, page, id } = payload
-  const OMDB_API_KEY = '7035c60c'
-  const url = id 
-    ? `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
-    : `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
-
-  return new Promise((resolve, reject) => {
-    axios.get(url)
-      .then(res => {
-        // console.log(res)
-        // 예외 처리
-        if (res.data.Error) {
-          reject(res.data.Error)
-        }
-        resolve(res)
-      })
-       .catch(err => {
-        reject(err.message)
-      })
-  })
+async function _fetchMovie(payload) {
+  return await axios.post('/.netlify/functions/movie', payload)
 }
