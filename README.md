@@ -16,3 +16,14 @@ function func() {
   this.$router.push(''); 
 }
 ```
+
+## 단위 테스트 (Unit Test)
+데이터, 함수, 컴포넌트 등 정의된 프로그램 최소
+단위들이 독립적으로 정상 동작하는지 확인한다.
+1. Jest
+1. vue/test-utils
+
+## E2E 테스트
+APP의 시작-끝까지 실제 사용자 관점에서 사용 흐름을
+테스트하는 방법
+1. cypress.io
