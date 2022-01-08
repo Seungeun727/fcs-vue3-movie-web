@@ -1,22 +1,27 @@
-const userA = {
-  name: 'james',
-  age: 85
-}
+import * as example from "./example";
 
-const userB = {
-  name: 'Neo',
-  age: 22
-}
+describe('async test', () => {
+  // test('done', (done) => {
+  //   asyncFunc().then(res => {
+  //     expect(res).toBe('Done!')  // 정상적으로 동작하지 않음
+  //     done()
+  //   })
+  // })
 
-test('데이터 일치해야 합니다.', () => {
-  expect(userA.age).toBe(85)   // .toBe() : 원시형 데이터 비교
-  expect(userA).toEqual({     // .toEqual() : 참조형 데이터 비교
-    name: 'james',
-    age: 85
-  })
-})
+  // test('then', () => {
+  //   return asyncFunc().then(res => {
+  //     expect(res).toBe('Done!')
+  //   })
+  // })
 
-test('데이터 일치하지 않아야 합니다.', () => {
-  expect(userB.name).not.toBe('Bell')
-  expect(userB).not.toEqual(userA)
+  // test('resolve', () => expect(asyncFunc()).resolves.toBe('Done!'))
+  // test() 기본값은 최대 5초 .
+
+  // 모의 함수(Mock)
+  test('async/await', async () => {
+    jest.spyOn(example, 'asyncFunc')
+      .mockResolvedValue('Done!')
+    const res = await example.asyncFunc()
+    expect(res).toBe('Done!')
+  }, 7000)
 })
