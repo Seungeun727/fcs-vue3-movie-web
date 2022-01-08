@@ -23,6 +23,7 @@ function func() {
 1. Jest
 1. vue/test-utils
 
+* ? vue-jest와 jest 27 bug
 ## E2E 테스트
 APP의 시작-끝까지 실제 사용자 관점에서 사용 흐름을
 테스트하는 방법
