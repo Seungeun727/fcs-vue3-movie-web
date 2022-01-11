@@ -55,7 +55,7 @@ export default {
           name: 'year',
           items: (() => {
             const years = [];
-            const thisYear = new Date().getFullYear;
+            const thisYear = new Date().getFullYear();
             for (let i = thisYear; i >= 1985; i -= 1) {
               years.push(i);
             } 

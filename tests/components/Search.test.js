@@ -10,11 +10,10 @@ describe('components/Search.vue', () => {
   })
 
   test('선택 가능한 연도의 개수가 일치합니다.', () => {
-    const year = wrapper.vm.filters.find((x) => {
-      return x.name === 'year';
-    });
-
-    const yearLength = new Date().getFullYear()- 1985 + 1;
+    const year = wrapper.vm.filters.find(x => x.name === 'year')
+    console.log("year: ", year);
+    console.log("year.item total length: ", year.items.length);
+    const yearLength = new Date().getFullYear() - 1985 + 1;
     
     expect(year.items.length).toBe(yearLength);
   })
