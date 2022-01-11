@@ -51,15 +51,15 @@ export default {
           name: 'number',
           items: [10, 20, 30]
         },
-         {
+        {
           name: 'year',
           items: (() => {
-            const years = []
-            const thisYear = new Date().getFullYear
+            const years = [];
+            const thisYear = new Date().getFullYear;
             for (let i = thisYear; i >= 1985; i -= 1) {
-              years.push(i)
+              years.push(i);
             } 
-            return years
+            return years;
           })()
         }
       ]
