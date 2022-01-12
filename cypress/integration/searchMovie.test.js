@@ -42,7 +42,7 @@ describe('영화 검색(겨울 왕국II)' , () => {
     cy.wait(1000);
     cy.get('header .nav-link.active') 
       .contains('Movie');  // Movie navigation 버튼이 활성화가 되었는지 확인한다.
-    cy.get('title')
+    cy.get('.title')
       .contains('Frozen II'); // 상세 페이지에서 Frozen II 정보를 확인한다.
   })
 })

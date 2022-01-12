@@ -1,7 +1,7 @@
 .cache/
 .idea/
-.DS_Store/
 node_modules/
 dist/
-
+cypress/screenshots/ 
+cypres/videos
 .env
