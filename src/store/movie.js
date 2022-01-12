@@ -29,7 +29,7 @@ export default {
       // ['movies', 'message', 'loading']
       // 객체의 데이터를 가지고 새로운 배열 생성함.
       Object.keys(payload).forEach(key => {
-        state[key] = payload[key] 
+        state[key] = payload[key]; 
       })
     },
 
@@ -38,9 +38,9 @@ export default {
     // },
 
     resetMovies(state) {
-      state.movies = []
-      state.message = _defaultMessage
-      state.loading = false
+      state.movies = [];
+      state.message = _defaultMessage;
+      state.loading = false;
     }
   },
 
