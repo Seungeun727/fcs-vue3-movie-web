@@ -22,15 +22,33 @@ function func() {
 * 테스트 걸리는 시간 최소화 로직 단순화
 1. Jest
 1. vue/test-utils
-
 * ? vue-jest와 jest 27 bug
+
 ## E2E 테스트
 APP의 시작-끝까지 실제 사용자 관점에서 사용 흐름을
 테스트하는 방법
 1. cypress.io
 
-### Cypress에서 사용하는 함수 
+## Cypress에서 사용하는 명령 
 값 | 의미 |
---|:--:|
-| get() | DOM 요소 사용
+--|:--|
+| url() | 현재 활성화된 페이지 url 가져온다.
+| get() | DOM 요소 확인 및 불러온다.
 | visit() | url 설정
+| click() | DOM 요소 클릭하는데 사용
+| contains() | 특정한 문자 포함되었는지 DOM 요소를 확인함. 
+| select() | `<select>`의 `<option>`을 선택한다.
+| should() | assertion(단언)을 생성한다.
+
+## 재학습 필요
+```js
+  // 다시 이해할 것
+  cy.url().should('include', '/movie/tt4520988'); 
+  // Cypress 명령어 
+  // 현재 페이지에서 /movie/tt45290988이 포함될 것을 기대한다.
+  
+  expect().toEqual();
+  // Jest 명령어 
+  // expect 통해 제공받은 값이 기대값과 일치할 것을 단언(신뢰)한다.
+```
+
