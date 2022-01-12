@@ -28,3 +28,9 @@ function func() {
 APP의 시작-끝까지 실제 사용자 관점에서 사용 흐름을
 테스트하는 방법
 1. cypress.io
+
+### Cypress에서 사용하는 함수 
+값 | 의미 |
+--|:--:|
+| get() | DOM 요소 사용
+| visit() | url 설정

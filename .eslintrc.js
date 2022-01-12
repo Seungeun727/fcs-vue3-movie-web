@@ -3,8 +3,13 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    jest: true
+    jest: true,
+    'cypress/globals': true
   },
+  // 플러그인 등록
+  plugins: [
+    'cypress'
+  ],
   // 사용 가능한 규칙 세트
   extends: [
     // 'plugin:vue/vue3-essential', // Lv1
