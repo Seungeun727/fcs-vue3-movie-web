@@ -14,6 +14,7 @@ describe('store/movie.js', () => {
     console.log("함수", store.state);
     store.commit = (name, payload) => {  // name: 변이 메소드 
       store.mutations[name] (store.state, payload)
+      console.log("store.mutations", store.mutations[name]);
     }
     store.dispatch = (name, payload) => {
       const context = {
@@ -22,18 +23,20 @@ describe('store/movie.js', () => {
         dispatch: store.dispatch
       }
       // actions 비동기함수이므로 return 으로 반환해야한다.
-      return store.actions[name] (context, payload)
+      console.log("store.actions", store.actions[name]);
+      return store.actions[name](context, payload)
+      
     }
   })
 
-  test('영화 데이터를 초기화합니다.', () => {
+  test('영화 데이터를 초기화합니다.', async () => {
     // this.$store.commit('movie/resetMovies');
     store.commit('updateState', {
       movies: [{ imdbID: '1'}],
       message: 'Hello World',
       loading: true
     })
-    store.commit('resetMovies')
+    store.commit('resetMovies');
 
     // 객체의 내용이 같은지 확인할 때 toEqual 사용함
     expect(store.state.movies).toEqual([]);
@@ -44,7 +47,7 @@ describe('store/movie.js', () => {
   test('영화 목록을 가져온 경우 데이터를 확인합니다.', async () => {
     const res = { 
       data: {
-        totalResults: '',
+        totalResults: '1',
         Search: [
           {
             imdbID: '1',
@@ -120,7 +123,7 @@ describe('store/movie.js', () => {
     }
 
     axios.post = jest.fn().mockResolvedValue(res);
-    await store.dispatch('searchMovies');
+    await store.dispatch('searchMovieWithId');
     // themMovie {}이므로 toEqual()이용함
     expect(store.state.theMovie).toEqual(res.data);
   })
